@@ -102,7 +102,7 @@ def delete_blog(
     blog = session.get(Blog, id)
     if not blog:
         raise HTTPException(status_code=404, detail="Blog not found")
-    if not current_user.is_superuser and (blog.owner_id != current_user.id):
+    if not current_user.is_superuser:
         raise HTTPException(status_code=400, detail="Not enough permissions")
     session.delete(blog)
     session.commit()
