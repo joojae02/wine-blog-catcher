@@ -8,7 +8,6 @@ import {
 } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
-import React from "react"
 import { FiSearch } from "react-icons/fi"
 import { z } from "zod"
 
