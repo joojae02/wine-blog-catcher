@@ -1,16 +1,9 @@
 import uuid
 from datetime import datetime
-from enum import Enum
 
 from pydantic import EmailStr
 from sqlalchemy import JSON, Column
 from sqlmodel import Field, Relationship, SQLModel
-
-
-class BlogOwnerType(str, Enum):
-    JOYANGMART = "joyangmart"
-    PIERROTMART = "pierrot_market"
-    LUCKYCLOUD = "storeluckycloud"
 
 
 # Shared properties
@@ -126,7 +119,7 @@ class Blog(SQLModel, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     name: str = Field(min_length=1, max_length=255)
     url: str = Field(max_length=500)
-    blog_owner: BlogOwnerType = Field(default=BlogOwnerType.JOYANGMART)
+    blog_owner: str = Field(min_length=1, max_length=255)
     target_category: str | None = Field(default=None, max_length=255)
     description: str | None = Field(default=None, max_length=255)
     created_at: datetime = Field(default_factory=datetime.now)
@@ -146,3 +139,35 @@ class BlogPost(SQLModel, table=True):
     image_urls: list = Field(default_factory=list, sa_column=Column(JSON))
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
+
+
+class BlogCreate(SQLModel):
+    name: str = Field(min_length=1, max_length=255)
+    url: str = Field(max_length=500)
+    blog_owner: str = Field(min_length=1, max_length=255)
+    target_category: str | None = Field(default=None, max_length=255)
+    description: str | None = Field(default=None, max_length=255)
+
+
+class BlogUpdate(SQLModel):
+    name: str | None = Field(default=None, min_length=1, max_length=255)
+    url: str | None = Field(default=None, max_length=500)
+    blog_owner: str | None = Field(default=None, min_length=1, max_length=255)
+    target_category: str | None = Field(default=None, max_length=255)
+    description: str | None = Field(default=None, max_length=255)
+
+
+class BlogPublic(SQLModel):
+    id: uuid.UUID
+    name: str
+    url: str
+    blog_owner: str
+    target_category: str | None
+    description: str | None
+    created_at: datetime
+    updated_at: datetime
+
+
+class BlogsPublic(SQLModel):
+    data: list[BlogPublic]
+    count: int
