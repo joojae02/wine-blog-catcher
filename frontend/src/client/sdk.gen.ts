@@ -4,6 +4,10 @@ import type { CancelablePromise } from "./core/CancelablePromise"
 import { OpenAPI } from "./core/OpenAPI"
 import { request as __request } from "./core/request"
 import type {
+  BlogPostsReadBlogPostData,
+  BlogPostsReadBlogPostResponse,
+  BlogPostsReadBlogPostsData,
+  BlogPostsReadBlogPostsResponse,
   BlogsCreateBlogData,
   BlogsCreateBlogResponse,
   BlogsDeleteBlogData,
@@ -57,6 +61,58 @@ import type {
   UtilsTestEmailData,
   UtilsTestEmailResponse,
 } from "./types.gen"
+
+export class BlogPostsService {
+  /**
+   * Read Blog Posts
+   * Retrieve all blog posts with optional blog filtering.
+   * @param data The data for the request.
+   * @param data.skip
+   * @param data.limit
+   * @param data.blogId
+   * @returns BlogPostsPublic Successful Response
+   * @throws ApiError
+   */
+  public static readBlogPosts(
+    data: BlogPostsReadBlogPostsData = {},
+  ): CancelablePromise<BlogPostsReadBlogPostsResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/blog/posts/",
+      query: {
+        skip: data.skip,
+        limit: data.limit,
+        blog_id: data.blogId,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Read Blog Post
+   * Get blog post by ID.
+   * @param data The data for the request.
+   * @param data.id
+   * @returns BlogPostPublic Successful Response
+   * @throws ApiError
+   */
+  public static readBlogPost(
+    data: BlogPostsReadBlogPostData,
+  ): CancelablePromise<BlogPostsReadBlogPostResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/blog/posts/post/{id}",
+      path: {
+        id: data.id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
 
 export class BlogsService {
   /**

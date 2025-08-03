@@ -8,6 +8,22 @@ export type BlogCreate = {
   description?: string | null
 }
 
+export type BlogPostPublic = {
+  id: string
+  blog_name: string
+  url: string
+  post_id: string
+  title: string
+  published_at: string
+  content: string
+  image_urls: Array<string>
+}
+
+export type BlogPostsPublic = {
+  data: Array<BlogPostPublic>
+  count: number
+}
+
 export type BlogPublic = {
   id: string
   name: string
@@ -138,6 +154,20 @@ export type ValidationError = {
   msg: string
   type: string
 }
+
+export type BlogPostsReadBlogPostsData = {
+  blogId?: string | null
+  limit?: number
+  skip?: number
+}
+
+export type BlogPostsReadBlogPostsResponse = BlogPostsPublic
+
+export type BlogPostsReadBlogPostData = {
+  id: string
+}
+
+export type BlogPostsReadBlogPostResponse = BlogPostPublic
 
 export type BlogsReadBlogsData = {
   limit?: number
