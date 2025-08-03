@@ -1,7 +1,16 @@
 import uuid
+from datetime import datetime
+from enum import Enum
 
 from pydantic import EmailStr
+from sqlalchemy import JSON, Column
 from sqlmodel import Field, Relationship, SQLModel
+
+
+class BlogOwnerType(str, Enum):
+    JOYANGMART = "joyangmart"
+    PIERROTMART = "pierrot_market"
+    LUCKYCLOUD = "storeluckycloud"
 
 
 # Shared properties
@@ -111,3 +120,29 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+
+class Blog(SQLModel, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    name: str = Field(min_length=1, max_length=255)
+    url: str = Field(max_length=500)
+    blog_owner: BlogOwnerType = Field(default=BlogOwnerType.JOYANGMART)
+    target_category: str | None = Field(default=None, max_length=255)
+    description: str | None = Field(default=None, max_length=255)
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+    posts: list["BlogPost"] = Relationship(back_populates="blog", cascade_delete=True)
+
+
+class BlogPost(SQLModel, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    blog_id: uuid.UUID = Field(
+        foreign_key="blog.id", nullable=False, ondelete="CASCADE"
+    )
+    blog: Blog | None = Relationship(back_populates="posts")
+    title: str = Field(min_length=1, max_length=255)
+    published_at: datetime | None = Field(default=None)
+    content: str = Field(min_length=1, max_length=255)
+    image_urls: list = Field(default_factory=list, sa_column=Column(JSON))
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
