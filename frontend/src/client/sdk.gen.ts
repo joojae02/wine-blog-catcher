@@ -4,49 +4,180 @@ import type { CancelablePromise } from "./core/CancelablePromise"
 import { OpenAPI } from "./core/OpenAPI"
 import { request as __request } from "./core/request"
 import type {
-  ItemsReadItemsData,
-  ItemsReadItemsResponse,
+  BlogsCreateBlogData,
+  BlogsCreateBlogResponse,
+  BlogsDeleteBlogData,
+  BlogsDeleteBlogResponse,
+  BlogsReadBlogData,
+  BlogsReadBlogResponse,
+  BlogsReadBlogsData,
+  BlogsReadBlogsResponse,
+  BlogsUpdateBlogData,
+  BlogsUpdateBlogResponse,
   ItemsCreateItemData,
   ItemsCreateItemResponse,
-  ItemsReadItemData,
-  ItemsReadItemResponse,
-  ItemsUpdateItemData,
-  ItemsUpdateItemResponse,
   ItemsDeleteItemData,
   ItemsDeleteItemResponse,
+  ItemsReadItemData,
+  ItemsReadItemResponse,
+  ItemsReadItemsData,
+  ItemsReadItemsResponse,
+  ItemsUpdateItemData,
+  ItemsUpdateItemResponse,
   LoginLoginAccessTokenData,
   LoginLoginAccessTokenResponse,
-  LoginTestTokenResponse,
   LoginRecoverPasswordData,
+  LoginRecoverPasswordHtmlContentData,
+  LoginRecoverPasswordHtmlContentResponse,
   LoginRecoverPasswordResponse,
   LoginResetPasswordData,
   LoginResetPasswordResponse,
-  LoginRecoverPasswordHtmlContentData,
-  LoginRecoverPasswordHtmlContentResponse,
+  LoginTestTokenResponse,
   PrivateCreateUserData,
   PrivateCreateUserResponse,
-  UsersReadUsersData,
-  UsersReadUsersResponse,
   UsersCreateUserData,
   UsersCreateUserResponse,
-  UsersReadUserMeResponse,
+  UsersDeleteUserData,
   UsersDeleteUserMeResponse,
-  UsersUpdateUserMeData,
-  UsersUpdateUserMeResponse,
-  UsersUpdatePasswordMeData,
-  UsersUpdatePasswordMeResponse,
-  UsersRegisterUserData,
-  UsersRegisterUserResponse,
+  UsersDeleteUserResponse,
   UsersReadUserByIdData,
   UsersReadUserByIdResponse,
+  UsersReadUserMeResponse,
+  UsersReadUsersData,
+  UsersReadUsersResponse,
+  UsersRegisterUserData,
+  UsersRegisterUserResponse,
+  UsersUpdatePasswordMeData,
+  UsersUpdatePasswordMeResponse,
   UsersUpdateUserData,
+  UsersUpdateUserMeData,
+  UsersUpdateUserMeResponse,
   UsersUpdateUserResponse,
-  UsersDeleteUserData,
-  UsersDeleteUserResponse,
+  UtilsHealthCheckResponse,
   UtilsTestEmailData,
   UtilsTestEmailResponse,
-  UtilsHealthCheckResponse,
 } from "./types.gen"
+
+export class BlogsService {
+  /**
+   * Read Blogs
+   * Retrieve blogs.
+   * @param data The data for the request.
+   * @param data.skip
+   * @param data.limit
+   * @returns BlogsPublic Successful Response
+   * @throws ApiError
+   */
+  public static readBlogs(
+    data: BlogsReadBlogsData = {},
+  ): CancelablePromise<BlogsReadBlogsResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/blogs/",
+      query: {
+        skip: data.skip,
+        limit: data.limit,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Create Blog
+   * Create new blog.
+   * @param data The data for the request.
+   * @param data.requestBody
+   * @returns BlogPublic Successful Response
+   * @throws ApiError
+   */
+  public static createBlog(
+    data: BlogsCreateBlogData,
+  ): CancelablePromise<BlogsCreateBlogResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/blogs/",
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Read Blog
+   * Get blog by ID.
+   * @param data The data for the request.
+   * @param data.id
+   * @returns BlogPublic Successful Response
+   * @throws ApiError
+   */
+  public static readBlog(
+    data: BlogsReadBlogData,
+  ): CancelablePromise<BlogsReadBlogResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/blogs/{id}",
+      path: {
+        id: data.id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Update Blog
+   * Update an blog.
+   * @param data The data for the request.
+   * @param data.id
+   * @param data.requestBody
+   * @returns BlogPublic Successful Response
+   * @throws ApiError
+   */
+  public static updateBlog(
+    data: BlogsUpdateBlogData,
+  ): CancelablePromise<BlogsUpdateBlogResponse> {
+    return __request(OpenAPI, {
+      method: "PUT",
+      url: "/api/v1/blogs/{id}",
+      path: {
+        id: data.id,
+      },
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+
+  /**
+   * Delete Blog
+   * Delete an blog.
+   * @param data The data for the request.
+   * @param data.id
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+  public static deleteBlog(
+    data: BlogsDeleteBlogData,
+  ): CancelablePromise<BlogsDeleteBlogResponse> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/api/v1/blogs/{id}",
+      path: {
+        id: data.id,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
 
 export class ItemsService {
   /**
