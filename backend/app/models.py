@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 
 from pydantic import EmailStr
-from sqlmodel import JSON, Column, Field, Relationship, SQLModel
+from sqlmodel import JSON, Column, Field, Relationship, SQLModel, Text
 
 
 # Shared properties
@@ -136,7 +136,7 @@ class BlogPost(SQLModel, table=True):
     post_id: str = Field(min_length=1, max_length=255)
     title: str = Field(min_length=1, max_length=255)
     published_at: datetime | None = Field(default=None)
-    content: str = Field(min_length=1, max_length=255)
+    content: str = Field(sa_column=Column(Text))
     image_urls: list = Field(default_factory=list, sa_column=Column(JSON))
     created_at: datetime = Field(default_factory=datetime.now)
     updated_at: datetime = Field(default_factory=datetime.now)
