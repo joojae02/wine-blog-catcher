@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 
 from pydantic import EmailStr
-from sqlmodel import Column, Field, JSON, Relationship, SQLModel
+from sqlmodel import JSON, Column, Field, Relationship, SQLModel
 
 
 # Shared properties
@@ -179,3 +179,19 @@ class NaverBlogPost(SQLModel):
     published_at: datetime
     content: str
     image_urls: list[str]
+
+
+class BlogPostPublic(SQLModel):
+    id: uuid.UUID
+    blog_name: str
+    url: str
+    post_id: str
+    title: str
+    published_at: datetime
+    content: str
+    image_urls: list[str]
+
+
+class BlogPostsPublic(SQLModel):
+    data: list[BlogPostPublic]
+    count: int

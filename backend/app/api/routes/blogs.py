@@ -5,8 +5,7 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import func, select
 
 from app.api.deps import CurrentUser, SessionDep
-from app.models import Blog, BlogCreate, BlogPublic, BlogsPublic, BlogUpdate
-from app.models import Message
+from app.models import Blog, BlogCreate, BlogPublic, BlogsPublic, BlogUpdate, Message
 
 router = APIRouter(prefix="/blogs", tags=["blogs"])
 
@@ -43,15 +42,13 @@ def read_blogs(
 
 
 @router.get("/{id}", response_model=BlogPublic)
-def read_blog(session: SessionDep, current_user: CurrentUser, id: uuid.UUID) -> Any:
+def read_blog(session: SessionDep, id: uuid.UUID) -> Any:
     """
     Get blog by ID.
     """
     blog = session.get(Blog, id)
     if not blog:
         raise HTTPException(status_code=404, detail="Blog not found")
-    if not current_user.is_superuser and (blog.owner_id != current_user.id):
-        raise HTTPException(status_code=400, detail="Not enough permissions")
     return blog
 
 
