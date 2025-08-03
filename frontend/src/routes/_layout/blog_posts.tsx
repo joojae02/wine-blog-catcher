@@ -13,6 +13,7 @@ import { z } from "zod"
 
 import { BlogPostsService } from "@/client"
 import PendingBlogPosts from "@/components/Pending/PendingBlogPosts"
+import { Button } from "@/components/ui/button"
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -91,7 +92,7 @@ function BlogPostsTable() {
             <Table.ColumnHeader w="sm">Post ID</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Title</Table.ColumnHeader>
             <Table.ColumnHeader w="sm">Published At</Table.ColumnHeader>
-            <Table.ColumnHeader w="sm">Actions</Table.ColumnHeader>
+            <Table.ColumnHeader w="sm">Detail</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -120,8 +121,9 @@ function BlogPostsTable() {
                 {blogPost.published_at || "N/A"}
               </Table.Cell>
               <Table.Cell>
-                {/* TODO: Add BlogActionsMenu component */}
-                <span>Actions</span>
+                <Button variant="outline" size="sm">
+                  Detail
+                </Button>
               </Table.Cell>
             </Table.Row>
           ))}
