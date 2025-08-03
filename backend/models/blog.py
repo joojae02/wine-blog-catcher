@@ -22,6 +22,8 @@ class BlogPost(SQLModel, table=True):
         foreign_key="blog.id", nullable=False, ondelete="CASCADE"
     )
     blog: Blog | None = Relationship(back_populates="posts")
+    url: str = Field(max_length=500)
+    post_id: str = Field(min_length=1, max_length=255)
     title: str = Field(min_length=1, max_length=255)
     published_at: datetime | None = Field(default=None)
     content: str = Field(min_length=1, max_length=255)
