@@ -4,7 +4,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
-from models.blog import NaverBlogPost
+from app.models import NaverBlogPost
 
 
 class NaverBlogSerivce:

@@ -5,8 +5,8 @@ from fastapi import APIRouter, HTTPException
 from sqlmodel import func, select
 
 from app.api.deps import CurrentUser, SessionDep
-from models.blog import Blog, BlogCreate, BlogPublic, BlogsPublic, BlogUpdate
-from models.models import Message
+from app.models import Blog, BlogCreate, BlogPublic, BlogsPublic, BlogUpdate
+from app.models import Message
 
 router = APIRouter(prefix="/blogs", tags=["blogs"])
 

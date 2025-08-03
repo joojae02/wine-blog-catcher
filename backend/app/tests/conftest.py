@@ -9,7 +9,7 @@ from app.core.db import engine, init_db
 from app.main import app
 from app.tests.utils.user import authentication_token_from_email
 from app.tests.utils.utils import get_superuser_token_headers
-from models.models import Item, User
+from app.models import Item, User
 
 
 @pytest.fixture(scope="session", autouse=True)

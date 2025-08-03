@@ -16,7 +16,7 @@ from app.utils import (
     send_email,
     verify_password_reset_token,
 )
-from models.models import Message, NewPassword, Token, UserPublic
+from app.models import Message, NewPassword, Token, UserPublic
 
 router = APIRouter(tags=["login"])
 
