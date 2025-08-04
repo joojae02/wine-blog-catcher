@@ -195,3 +195,11 @@ class BlogPostPublic(SQLModel):
 class BlogPostsPublic(SQLModel):
     data: list[BlogPostPublic]
     count: int
+
+
+class ProxyImagePublic(SQLModel):
+    content: bytes
+    content_type: str | None = None
+    content_length: int | None = None
+    original_url: str | None = None
+    error_message: str | None = None
