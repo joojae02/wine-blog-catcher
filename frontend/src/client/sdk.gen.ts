@@ -493,7 +493,7 @@ export class ProxyService {
    * Proxy image from external sources to bypass CORS restrictions
    * @param data The data for the request.
    * @param data.url
-   * @returns ProxyImagePublic Successful Response
+   * @returns unknown Successful Response
    * @throws ApiError
    */
   public static proxyImage(
