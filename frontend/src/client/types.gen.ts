@@ -99,6 +99,14 @@ export type PrivateUserCreate = {
   is_verified?: boolean
 }
 
+export type ProxyImagePublic = {
+  content: Blob | File
+  content_type?: string | null
+  content_length?: number | null
+  original_url?: string | null
+  error_message?: string | null
+}
+
 export type Token = {
   access_token: string
   token_type?: string
@@ -264,6 +272,12 @@ export type PrivateCreateUserData = {
 }
 
 export type PrivateCreateUserResponse = UserPublic
+
+export type ProxyProxyImageData = {
+  url: string
+}
+
+export type ProxyProxyImageResponse = ProxyImagePublic
 
 export type UsersReadUsersData = {
   limit?: number

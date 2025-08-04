@@ -14,6 +14,8 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as SignupImport } from './routes/signup'
 import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as RecoverPasswordImport } from './routes/recover-password'
+import { Route as PublicLatestPostsImport } from './routes/public-latest-posts'
+import { Route as PublicBlogPostsImport } from './routes/public-blog-posts'
 import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
@@ -37,6 +39,16 @@ const ResetPasswordRoute = ResetPasswordImport.update({
 
 const RecoverPasswordRoute = RecoverPasswordImport.update({
   path: '/recover-password',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicLatestPostsRoute = PublicLatestPostsImport.update({
+  path: '/public-latest-posts',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicBlogPostsRoute = PublicBlogPostsImport.update({
+  path: '/public-blog-posts',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -92,6 +104,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/public-blog-posts': {
+      preLoaderRoute: typeof PublicBlogPostsImport
+      parentRoute: typeof rootRoute
+    }
+    '/public-latest-posts': {
+      preLoaderRoute: typeof PublicLatestPostsImport
+      parentRoute: typeof rootRoute
+    }
     '/recover-password': {
       preLoaderRoute: typeof RecoverPasswordImport
       parentRoute: typeof rootRoute
@@ -143,6 +163,8 @@ export const routeTree = rootRoute.addChildren([
     LayoutIndexRoute,
   ]),
   LoginRoute,
+  PublicBlogPostsRoute,
+  PublicLatestPostsRoute,
   RecoverPasswordRoute,
   ResetPasswordRoute,
   SignupRoute,

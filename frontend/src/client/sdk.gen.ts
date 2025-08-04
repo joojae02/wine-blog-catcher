@@ -39,6 +39,8 @@ import type {
   LoginTestTokenResponse,
   PrivateCreateUserData,
   PrivateCreateUserResponse,
+  ProxyProxyImageData,
+  ProxyProxyImageResponse,
   UsersCreateUserData,
   UsersCreateUserResponse,
   UsersDeleteUserData,
@@ -478,6 +480,31 @@ export class PrivateService {
       url: "/api/v1/private/users/",
       body: data.requestBody,
       mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    })
+  }
+}
+
+export class ProxyService {
+  /**
+   * Proxy Image
+   * Proxy image from external sources to bypass CORS restrictions
+   * @param data The data for the request.
+   * @param data.url
+   * @returns ProxyImagePublic Successful Response
+   * @throws ApiError
+   */
+  public static proxyImage(
+    data: ProxyProxyImageData,
+  ): CancelablePromise<ProxyProxyImageResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/proxy/image",
+      query: {
+        url: data.url,
+      },
       errors: {
         422: "Validation Error",
       },
